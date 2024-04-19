@@ -1,0 +1,12 @@
+[submodule "digital-signage"]
+	path = digital-signage
+	url = git@github.com:CityConnect-TQS/digital-signage.git
+[submodule "backend"]
+	path = backend
+	url = git@github.com:CityConnect-TQS/backend.git
+[submodule "staff-portal"]
+	path = staff-portal
+	url = git@github.com:CityConnect-TQS/staff-portal.git
+[submodule "client-portal"]
+	path = client-portal
+	url = git@github.com:CityConnect-TQS/client-portal.git
