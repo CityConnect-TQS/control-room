@@ -1,0 +1,136 @@
+services:
+  database:
+    image: postgres:16.2
+    environment:
+      # Default user is postgres
+      POSTGRES_DB: cityconnect
+      POSTGRES_PASSWORD: cityconnect
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - backend
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    depends_on:
+      database:
+        condition: service_healthy
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      interval: 2s
+      timeout: 2s
+      retries: 100
+      start_period: 2s
+    environment:
+      CURRENCY_API_KEY: ${CURRENCY_API_KEY}
+      SPRING_APPLICATION_JSON: '{
+            "spring.datasource.url" : "jdbc:postgresql://database:5432/cityconnect",
+            "spring.datasource.username" : "postgres",
+            "spring.datasource.password" : "cityconnect",
+            "spring.jpa.hibernate.ddl-auto" : "update",
+            "management.influx.metrics.export.enabled": "false",
+            "currencyapi.apikey": "${CURRENCY_API_KEY}",
+            "springdoc.api-docs.path": "/api/docs-config",
+            "springdoc.swagger-ui.url": "/api/docs-config",
+            "springdoc.swagger-ui.path": "/api/docs/index.html"
+          }'
+    restart: unless-stopped
+    networks:
+      - backend
+    volumes:
+      - maven_data:/root/.m2
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.backend.rule=Host(`api.localhost`)
+      - traefik.http.services.backend.loadbalancer.server.port=8080
+      - traefik.http.routers.backend.entrypoints=web
+
+  client-portal:
+    depends_on:
+      backend:
+        condition: service_healthy
+    build:
+      context: ./client-portal
+      dockerfile: Dockerfile.prod
+    volumes:
+      - bun_cache:/root/.bun/install/cache
+    networks:
+      - frontend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.client-portal.rule=Host(`localhost`)
+      - traefik.http.services.client-portal.loadbalancer.server.port=5173
+      - traefik.http.routers.client-portal.entrypoints=web
+  
+  staff-portal:
+    depends_on:
+      backend:
+        condition: service_healthy
+    build:
+      context: ./staff-portal
+      dockerfile: Dockerfile.prod
+    volumes:
+      - bun_cache:/root/.bun/install/cache
+    networks:
+      - frontend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.staff-portal.rule=Host(`staff.localhost`)
+      - traefik.http.services.staff-portal.loadbalancer.server.port=5173
+      - traefik.http.routers.staff-portal.entrypoints=web
+
+  digital-signage:
+    depends_on:
+      backend:
+        condition: service_healthy
+    build:
+      context: ./digital-signage
+      dockerfile: Dockerfile.prod
+    volumes:
+      - bun_cache:/root/.bun/install/cache
+    networks:
+      - frontend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.digital-signage.rule=Host(`digital.localhost`)
+      - traefik.http.services.digital-signage.loadbalancer.server.port=5173
+      - traefik.http.routers.digital-signage.entrypoints=web
+  
+  traefik:
+    image: traefik:v2.11
+    ports:
+      - 80:80
+      - 8080:8080
+    depends_on:
+      backend:
+        condition: service_healthy
+      client-portal:
+        condition: service_started
+      staff-portal:
+        condition: service_started
+      digital-signage:
+        condition: service_started
+    networks:
+      - backend
+      - frontend
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./proxy/traefik.prod.yml:/etc/traefik/traefik.yml
+
+volumes:
+  bun_cache:
+  maven_data:
+  pg_data:
+
+networks:
+  backend:
+  frontend:
