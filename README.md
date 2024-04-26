@@ -5,13 +5,11 @@ Our project aligns with these goals by focusing on the development of a user-cen
 
 ## Project Bookmarks
 
-- Project Backlog: https://cityconnect-tqs.atlassian.net/jira/software/projects/CC/boards/1/backlog?epics=visible&atlOrigin=eyJpIjoiNjA5NjllZGViN2Y0NDNmY2EyYjcyY2YzODZjZTkyMzQiLCJwIjoiaiJ9
+- [Project Backlog](https://cityconnect-tqs.atlassian.net/jira/software/projects/CC/boards/1/backlog)
+- [API Documentation](http://api.localhost/api/docs/swagger-ui/index.html)
+- [Static Analysis](https://sonarcloud.io/project/overview?id=CityConnect-TQS_backend)
 
-- API Documentation:
-
-- Static Analysis:
-
-- CI/CD enviroment:
+- CI/CD enviroment: Check the [backend](https://github.com/CityConnect-TQS/backend) submodule on how CI/CD is used for testing and Sonar analysis
 
 ## Project Team
 
