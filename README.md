@@ -9,7 +9,6 @@ Do these commands every time you start working:
 ```bash
 git pull
 git submodule foreach git pull
-git submodule foreach git fetch --all
 ```
 
 If everything works right and all stars are aligned, all submodules will hopefully be updated.
