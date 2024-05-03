@@ -38,6 +38,8 @@ services:
             "spring.jpa.hibernate.ddl-auto" : "update",
             "management.influx.metrics.export.enabled": "false",
             "currencyapi.apikey": "${CURRENCY_API_KEY}",
+            "cityconnect.app.jwtSecret" : "${SPRING_SECURITY_JWT_SECRET}",
+            "cityconnect.app.jwtExpirationMs": "86400000",
             "springdoc.api-docs.path": "/api/docs-config",
             "springdoc.swagger-ui.url": "/api/docs-config",
             "springdoc.swagger-ui.path": "/api/docs/index.html"
