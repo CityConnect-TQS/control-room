@@ -11,9 +11,9 @@ git pull
 git submodule foreach git pull
 ```
 
-If everything works right and all stars are aligned, all submodules will hopefully be updated.
+If everything works right, all submodules will hopefully be updated.
 
-There is no need to commit submodule changes to this repo, since GitHub Actions does it by itself. 
+There is no need to commit submodule changes to this repo, since GitHub Actions does it by itself.
 
 ### Full fetch & pull
 In the case where a full pull is needed, do the following:
@@ -24,6 +24,32 @@ git submodule foreach git checkout main
 ```
 
 **WARNING: All local changes will be discarded!**
+
+## Git tips
+### Check current branch
+Run this code to get the current branch of all submodules:
+
+```bash
+git submodule foreach git rev-parse --abbrev-ref HEAD
+```
+
+### Cherry-picking commits
+If you need to cherry-pick commits from another branch or repo, do the following:
+
+```bash
+# Add other repo, if applicable
+git remote add cherry git@github.com:CityConnect-TQS/client-portal.git
+git fetch cherry
+
+# Cherry-pick one commit
+git cherry-pick commit_hash
+
+# Cherry-pick several commits
+git cherry-pick <commit_hash1>^..<commit_hash2>
+
+# Remove other repo, if applicable
+git remote remove cherry
+```
 
 ## Project Bookmarks
 
