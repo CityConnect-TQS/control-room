@@ -65,6 +65,11 @@ git remote remove cherry
 
 - CI/CD enviroment: Check the [backend](https://github.com/CityConnect-TQS/backend) submodule on how CI/CD is used for testing and Sonar analysis
 
+## Credentials for testing
+
+- <b>Email</b>: admin@gmail.com
+- <b>Password</b>: admin123
+
 ## Project Team
 
 | Member                  | Role             |
