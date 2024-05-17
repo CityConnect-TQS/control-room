@@ -5,7 +5,9 @@ This project is undertaken as part of the TQS course, with the goal of developin
 Our project aligns with these goals by focusing on the development of a user-centered online system for a public bus service, with the advantage of unifying these digital services into one.
 
 ## Keep repo and submodules up-to-date
+
 Do these commands every time you start working:
+
 ```bash
 git pull
 git submodule foreach git pull
@@ -16,6 +18,7 @@ If everything works right, all submodules will hopefully be updated.
 There is no need to commit submodule changes to this repo, since GitHub Actions does it by itself.
 
 ### Full fetch & pull
+
 In the case where a full pull is needed, do the following:
 
 ```bash
@@ -26,7 +29,9 @@ git submodule foreach git checkout main
 **WARNING: All local changes will be discarded!**
 
 ## Git tips
+
 ### Check current branch
+
 Run this code to get the current branch of all submodules:
 
 ```bash
@@ -34,6 +39,7 @@ git submodule foreach git rev-parse --abbrev-ref HEAD
 ```
 
 ### Cherry-picking commits
+
 If you need to cherry-pick commits from another branch or repo, do the following:
 
 ```bash
@@ -59,10 +65,15 @@ git remote remove cherry
 
 - CI/CD enviroment: Check the [backend](https://github.com/CityConnect-TQS/backend) submodule on how CI/CD is used for testing and Sonar analysis
 
+## Credentials for testing
+
+- <b>Email</b>: admin@gmail.com
+- <b>Password</b>: admin123
+
 ## Project Team
 
 | Member                  | Role             |
-|-------------------------|------------------|
+| ----------------------- | ---------------- |
 | Bárbara Galiza (105937) | Product owner    |
 | Diana Miranda (107457)  | QA Engineer      |
 | Diogo Falcão (108712)   | Team Coordinator |
