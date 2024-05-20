@@ -67,8 +67,8 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-          docker compose pull
-          docker compose up -d --remove-orphans
+          docker compose -f compose.prod.yaml pull
+          docker compose -f compose.prod.yaml up -d --remove-orphans
           docker container prune -f
           docker image prune -af
           docker builder prune -af
