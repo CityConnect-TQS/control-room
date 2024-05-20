@@ -53,7 +53,7 @@ services:
       - maven_data:/root/.m2
     labels:
       - traefik.enable=true
-      - traefik.http.routers.backend.rule=Host(`api.localhost`)
+      - traefik.http.routers.backend.rule=Host(`api.deti-tqs-16.ua.pt`)
       - traefik.http.services.backend.loadbalancer.server.port=8080
       - traefik.http.routers.backend.entrypoints=web
 
@@ -72,7 +72,7 @@ services:
       - VITE_HOST_URL=deti-tqs-16.ua.pt
     labels:
       - traefik.enable=true
-      - traefik.http.routers.client-portal.rule=Host(`localhost`)
+      - traefik.http.routers.client-portal.rule=Host(`deti-tqs-16.ua.pt`)
       - traefik.http.services.client-portal.loadbalancer.server.port=5173
       - traefik.http.routers.client-portal.entrypoints=web
   
@@ -91,7 +91,7 @@ services:
       - VITE_HOST_URL=deti-tqs-16.ua.pt
     labels:
       - traefik.enable=true
-      - traefik.http.routers.staff-portal.rule=Host(`staff.localhost`)
+      - traefik.http.routers.staff-portal.rule=Host(`staff.deti-tqs-16.ua.pt`)
       - traefik.http.services.staff-portal.loadbalancer.server.port=5173
       - traefik.http.routers.staff-portal.entrypoints=web
 
@@ -110,7 +110,7 @@ services:
       - VITE_HOST_URL=deti-tqs-16.ua.pt
     labels:
       - traefik.enable=true
-      - traefik.http.routers.digital-signage.rule=Host(`digital.localhost`)
+      - traefik.http.routers.digital-signage.rule=Host(`digital.deti-tqs-16.ua.pt`)
       - traefik.http.services.digital-signage.loadbalancer.server.port=5173
       - traefik.http.routers.digital-signage.entrypoints=web
   
