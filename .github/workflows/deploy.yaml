@@ -1,0 +1,74 @@
+on:
+  push:
+    branches:
+      - main
+      - CC-321-Deploy-to-virtual-machine # Only for testing
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/bake-action@v4
+        with:
+          push: true
+          files: compose.prod.yaml
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    name: Deploy to DETI machine
+    env:
+      PRODUCTION: true
+      CURRENCY_API_KEY: ${{secrets.CURRENCY_API_KEY}}
+      JWT_PRIVATE: ${{secrets.JWT_PRIVATE}}
+      JWT_PUBLIC: ${{secrets.JWT_PUBLIC}}
+      POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Packages
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy with Docker Compose
+        run: |
+          docker compose pull
+          docker compose up -d --remove-orphans
+          docker container prune -f
+          docker image prune -af
+          docker builder prune -af
