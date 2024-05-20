@@ -20,6 +20,7 @@ services:
     depends_on:
       database:
         condition: service_healthy
+    image: ghcr.io/cityconnect-tqs/backend:${TAG:-latest}
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
@@ -60,6 +61,7 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    image: ghcr.io/cityconnect-tqs/client-portal:${TAG:-latest}
     build:
       context: ./client-portal
       dockerfile: Dockerfile.prod
@@ -79,6 +81,7 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    image: ghcr.io/cityconnect-tqs/staff-portal:${TAG:-latest}
     build:
       context: ./staff-portal
       dockerfile: Dockerfile.prod
@@ -98,6 +101,7 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    image: ghcr.io/cityconnect-tqs/digital-signage:${TAG:-latest}
     build:
       context: ./digital-signage
       dockerfile: Dockerfile.prod
