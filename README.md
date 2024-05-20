@@ -1,8 +1,16 @@
 # CityConnect
 
-This project is undertaken as part of the TQS course, with the goal of developing a MVP product while applying software enterprise architecture patterns, specifying and enforcing a Software Quality Assurance (SQA) strategy and applying Continuous Testing, Continuous Integration and Continuous Delivery practices. The chosen theme was a bus service, like the ones you found in common transportation terminals. This is a digital service which includes a customer portal, tools for staff to edit bus and trips information and a digital signage system.
+![example workflow](https://github.com/CityConnect-TQS/control-room/actions/workflows/deploy.yaml/badge.svg)
 
-Our project aligns with these goals by focusing on the development of a user-centered online system for a public bus service, with the advantage of unifying these digital services into one.
+This project is undertaken as part of the TQS course, with the goal of developing an MVP product while applying software
+enterprise architecture patterns, specifying and enforcing a Software Quality Assurance (SQA) strategy and applying
+Continuous Testing, Continuous Integration and Continuous Delivery practices.
+The chosen theme was a bus service, like the ones you found in common transportation terminals.
+This is a digital service that includes a customer portal,
+tools for staff to edit bus and trip information and a digital signage system.
+
+Our project aligns with these goals by focusing on the development of a user-centered online system for a public bus
+service, with the advantage of unifying these digital services into one.
 
 ## Keep repo and submodules up-to-date
 
@@ -63,7 +71,8 @@ git remote remove cherry
 - [API Documentation](http://api.localhost/api/docs/swagger-ui/index.html)
 - [Static Analysis](https://sonarcloud.io/project/overview?id=CityConnect-TQS_backend)
 
-- CI/CD enviroment: Check the [backend](https://github.com/CityConnect-TQS/backend) submodule on how CI/CD is used for testing and Sonar analysis
+- CI/CD enviroment: Check the [backend](https://github.com/CityConnect-TQS/backend) submodule on how CI/CD is used for
+  testing and Sonar analysis
 
 ## Credentials for testing
 
@@ -73,7 +82,7 @@ git remote remove cherry
 ## Project Team
 
 | Member                  | Role             |
-| ----------------------- | ---------------- |
+|-------------------------|------------------|
 | Bárbara Galiza (105937) | Product owner    |
 | Diana Miranda (107457)  | QA Engineer      |
 | Diogo Falcão (108712)   | Team Coordinator |
