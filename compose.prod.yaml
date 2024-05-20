@@ -111,8 +111,9 @@ services:
   traefik:
     image: traefik:v2.11
     ports:
-      - 80:80
-      - 8080:8080
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
     depends_on:
       backend:
         condition: service_healthy
