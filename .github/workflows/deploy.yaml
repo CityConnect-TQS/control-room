@@ -19,6 +19,7 @@ jobs:
       JWT_PRIVATE: ${{secrets.JWT_PRIVATE}}
       JWT_PUBLIC: ${{secrets.JWT_PUBLIC}}
       POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+      HOST_URL: deti-tqs-16.ua.pt
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
