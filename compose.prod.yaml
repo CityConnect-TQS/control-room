@@ -4,7 +4,7 @@ services:
     environment:
       # Default user is postgres
       POSTGRES_DB: cityconnect
-      POSTGRES_PASSWORD: cityconnect
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "postgres" ]
       interval: 10s
@@ -20,6 +20,7 @@ services:
     depends_on:
       database:
         condition: service_healthy
+    image: ghcr.io/cityconnect-tqs/backend:${TAG:-latest}
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
@@ -30,16 +31,15 @@ services:
       retries: 100
       start_period: 2s
     environment:
-      CURRENCY_API_KEY: ${CURRENCY_API_KEY}
       SPRING_APPLICATION_JSON: '{
-            "spring.datasource.url" : "jdbc:postgresql://database:5432/cityconnect",
-            "spring.datasource.username" : "postgres",
-            "spring.datasource.password" : "cityconnect",
-            "spring.jpa.hibernate.ddl-auto" : "update",
+            "spring.datasource.url": "jdbc:postgresql://database:5432/cityconnect",
+            "spring.datasource.username": "postgres",
+            "spring.datasource.password": "${POSTGRES_PASSWORD}",
+            "spring.jpa.hibernate.ddl-auto": "update",
             "management.influx.metrics.export.enabled": "false",
             "currencyapi.apikey": "${CURRENCY_API_KEY}",
-            "cityconnect.app.jwtPublicKey" : "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyzULMNYfytz32pr/fxkWmpSIA0tQYFY0UBjvHeY2F3tgGht6+dRBenIyAcPkwotmiWAINYbdZ1JqWVDKKnYVOjCvuh8c1biouzZHIwUpwVAHobkzrIGAHEyLDmKbRTW3anuE20pqYucf5RfIE2vvFnGp1x93mEP0Rokl/l8alE/hdWqFKeabtUIE3dgQNYukyUMunOLQsGOfRm5CbIevW+7mSxHFEn54lCHJKfUsJiLTU0xcpF5238Xt56qO0gRP2+w5yA/wcQSwgCxLi8WlLX9mPaYSWcs3pboTcGBY3duyoGokQh2ymiAP+G9pw6McV+1V0/uUgeCnJyduINkh7QIDAQAB",
-            "cityconnect.app.jwtPrivateKey" : "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDLNQsw1h/K3Pfamv9/GRaalIgDS1BgVjRQGO8d5jYXe2AaG3r51EF6cjIBw+TCi2aJYAg1ht1nUmpZUMoqdhU6MK+6HxzVuKi7NkcjBSnBUAehuTOsgYAcTIsOYptFNbdqe4TbSmpi5x/lF8gTa+8WcanXH3eYQ/RGiSX+XxqUT+F1aoUp5pu1QgTd2BA1i6TJQy6c4tCwY59GbkJsh69b7uZLEcUSfniUIckp9SwmItNTTFykXnbfxe3nqo7SBE/b7DnID/BxBLCALEuLxaUtf2Y9phJZyzeluhNwYFjd27KgaiRCHbKaIA/4b2nDoxxX7VXT+5SB4KcnJ24g2SHtAgMBAAECggEAAYPBNBl8fi4ceNgr7F4bAYb25pNio30xAaHV8nKbV5x3UGqBBaiz3j5IqiO0KlEQsBhzpzZ8ov8FxOmpwBxGNztSq//8Xol0VITojdXFhGfczrNLM895TXyykqZggukOF3CZQmsxFNClN7dwKdjlnNS3D9/vq8Zh5T6zdkxuLcnRO7KFYjbNkePYX9laKwmo+cti/tv/p3X7FqcAI85MKRTnBfrr9B39whe55RbALdO+fzHRYNVjJrwP01A75/9gB0pY5XZ9D3I2ahGmic3zHXEUxdX7tQmkqx8IhMCuMGQj4l/JOYkj9FiHJrAZnQog5g7Q6poV0uaM++buKM6sXwKBgQDzCN48uBqvkQy+XVacnc+v00taauIwWENRz9txBPZB8OCXoha+yuLemiTpuuwuzO0pHaMbx5xwbIKVxnh9RCZpXAE40jfQFYX/HU1vq9KU4VeCVqzM4trg0uiv4Gp3NplU/tvb3PsUcn8p+EsTAPDzt4KsmYaaFnWBpIwOI3qsywKBgQDWDEBAuPhRcc/+mtoB7ksELqNN6KNWeVU0w0z3POP7wxBZM+Iqrlnl65WkDPX7vEvEccMn4/SasYOCYZ97B4/NhTlAeGTSkdp5sGV7/yMOhSzBnsg/83rX3TF6u51Y1oN3TVsiwbOGDjidC0cH0T4c//GeRCar0ay2sppLbVeNJwKBgEam0VR9gOSBGl9M6xzkk7fdiQ5j/BVp00g5UOXuN1i8Gc57BHm6qXFlBk4cVQTV9iv5va0ZvlTAdsXryKNB6JjAcmp+UlNfrnCXqCdKoBE/4Ry27c0yNcceCR738nttl+2pmWi1ORicoHMnB0wi/ekb9BURHJw24zopB74kekk5AoGAM7ssQDg0E4L9MNx9+d98k9strqOd7kVOuXzF+i7mLq+bIOPwMj6HDZFdThOv05JTgXu5HcfzEvv5+6XaZGKUd6hOCO3P+DA17BkcvdYQw+6dvYHBheszcj5MOgxj39egWFICx6im2axQNGxIU3RXnayh2Y1BB1+abWFG9xnLAhsCgYBTlSisyDe5pfqmDLSoenT8KZQ1oGMU959riAm0cs7SkhDpARhMK+oLIZtigHbHeJK+GXZ/wNNCQBDPDYgXssmi3xJX1Ru75rG8zfFK3S5w9H3NGNRVr+8g4HnPPjpnhaNOjNaAGlrTxMRB9wwLskxs/M+YhX0Otxjgb6PuUKxVjQ==",
+            "cityconnect.app.jwtPublicKey": "${JWT_PUBLIC}",
+            "cityconnect.app.jwtPrivateKey": "${JWT_PRIVATE}",
             "cityconnect.app.jwtExpirationMs": "86400000",
             "springdoc.api-docs.path": "/api/docs-config",
             "springdoc.swagger-ui.url": "/api/docs-config",
@@ -53,7 +53,7 @@ services:
       - maven_data:/root/.m2
     labels:
       - traefik.enable=true
-      - traefik.http.routers.backend.rule=Host(`api.localhost`)
+      - traefik.http.routers.backend.rule=Host(`api.deti-tqs-16.ua.pt`)
       - traefik.http.services.backend.loadbalancer.server.port=8080
       - traefik.http.routers.backend.entrypoints=web
 
@@ -61,6 +61,7 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    image: ghcr.io/cityconnect-tqs/client-portal:${TAG:-latest}
     build:
       context: ./client-portal
       dockerfile: Dockerfile.prod
@@ -68,9 +69,11 @@ services:
       - bun_cache:/root/.bun/install/cache
     networks:
       - frontend
+    environment:
+      - VITE_HOST_URL=deti-tqs-16.ua.pt
     labels:
       - traefik.enable=true
-      - traefik.http.routers.client-portal.rule=Host(`localhost`)
+      - traefik.http.routers.client-portal.rule=Host(`deti-tqs-16.ua.pt`)
       - traefik.http.services.client-portal.loadbalancer.server.port=5173
       - traefik.http.routers.client-portal.entrypoints=web
   
@@ -78,6 +81,7 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    image: ghcr.io/cityconnect-tqs/staff-portal:${TAG:-latest}
     build:
       context: ./staff-portal
       dockerfile: Dockerfile.prod
@@ -85,9 +89,11 @@ services:
       - bun_cache:/root/.bun/install/cache
     networks:
       - frontend
+    environment:
+      - VITE_HOST_URL=deti-tqs-16.ua.pt
     labels:
       - traefik.enable=true
-      - traefik.http.routers.staff-portal.rule=Host(`staff.localhost`)
+      - traefik.http.routers.staff-portal.rule=Host(`staff.deti-tqs-16.ua.pt`)
       - traefik.http.services.staff-portal.loadbalancer.server.port=5173
       - traefik.http.routers.staff-portal.entrypoints=web
 
@@ -95,6 +101,7 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    image: ghcr.io/cityconnect-tqs/digital-signage:${TAG:-latest}
     build:
       context: ./digital-signage
       dockerfile: Dockerfile.prod
@@ -102,17 +109,20 @@ services:
       - bun_cache:/root/.bun/install/cache
     networks:
       - frontend
+    environment:
+      - VITE_HOST_URL=deti-tqs-16.ua.pt
     labels:
       - traefik.enable=true
-      - traefik.http.routers.digital-signage.rule=Host(`digital.localhost`)
+      - traefik.http.routers.digital-signage.rule=Host(`digital.deti-tqs-16.ua.pt`)
       - traefik.http.services.digital-signage.loadbalancer.server.port=5173
       - traefik.http.routers.digital-signage.entrypoints=web
   
   traefik:
     image: traefik:v2.11
     ports:
-      - 80:80
-      - 8080:8080
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
     depends_on:
       backend:
         condition: service_healthy
