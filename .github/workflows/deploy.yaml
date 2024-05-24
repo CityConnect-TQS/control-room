@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - main
-      - CC-321-Deploy-to-virtual-machine # Only for testing
   workflow_dispatch:
 
 concurrency:
