@@ -53,7 +53,7 @@ services:
       - maven_data:/root/.m2
     labels:
       - traefik.enable=true
-      - traefik.http.routers.backend.rule=Host(`api.${HOST_URL:-localhost}`)
+      - traefik.http.routers.backend.rule=PathPrefix(`/api`)
       - traefik.http.services.backend.loadbalancer.server.port=8080
       - traefik.http.routers.backend.entrypoints=web
 
@@ -71,14 +71,12 @@ services:
       - bun_cache:/root/.bun/install/cache
     networks:
       - frontend
-    environment:
-      - VITE_HOST_URL=${HOST_URL:-localhost}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.client-portal.rule=Host(`${HOST_URL:-localhost}`)
+      - traefik.http.routers.client-portal.rule=PathPrefix(`/`)
       - traefik.http.services.client-portal.loadbalancer.server.port=5173
       - traefik.http.routers.client-portal.entrypoints=web
-  
+
   staff-portal:
     depends_on:
       backend:
@@ -93,12 +91,10 @@ services:
       - bun_cache:/root/.bun/install/cache
     networks:
       - frontend
-    environment:
-      - VITE_HOST_URL=${HOST_URL:-localhost}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.staff-portal.rule=Host(`staff.${HOST_URL:-localhost}`)
-      - traefik.http.services.staff-portal.loadbalancer.server.port=5173
+      - traefik.http.routers.staff-portal.rule=PathPrefix(`/staff`)
+      - traefik.http.services.staff-portal.loadbalancer.server.port=80
       - traefik.http.routers.staff-portal.entrypoints=web
 
   digital-signage:
@@ -115,12 +111,10 @@ services:
       - bun_cache:/root/.bun/install/cache
     networks:
       - frontend
-    environment:
-      - VITE_HOST_URL=${HOST_URL:-localhost}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.digital-signage.rule=Host(`digital.${HOST_URL:-localhost}`)
-      - traefik.http.services.digital-signage.loadbalancer.server.port=5173
+      - traefik.http.routers.digital-signage.rule=PathPrefix(`/digital`)
+      - traefik.http.services.digital-signage.loadbalancer.server.port=80
       - traefik.http.routers.digital-signage.entrypoints=web
   
   traefik:
