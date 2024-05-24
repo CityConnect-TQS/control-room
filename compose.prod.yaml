@@ -71,8 +71,6 @@ services:
       - bun_cache:/root/.bun/install/cache
     networks:
       - frontend
-    environment:
-      - VITE_HOST_URL=${HOST_URL:-localhost}
     labels:
       - traefik.enable=true
       - traefik.http.routers.client-portal.rule=PathPrefix(`/`)
@@ -93,8 +91,6 @@ services:
       - bun_cache:/root/.bun/install/cache
     networks:
       - frontend
-    environment:
-      - VITE_HOST_URL=${HOST_URL:-localhost}
     labels:
       - traefik.enable=true
       - traefik.http.routers.staff-portal.rule=PathPrefix(`/staff`)
@@ -115,8 +111,6 @@ services:
       - bun_cache:/root/.bun/install/cache
     networks:
       - frontend
-    environment:
-      - VITE_HOST_URL=${HOST_URL:-localhost}
     labels:
       - traefik.enable=true
       - traefik.http.routers.digital-signage.rule=PathPrefix(`/digital`)
