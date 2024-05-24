@@ -98,7 +98,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.staff-portal.rule=PathPrefix(`/staff`)
-      - traefik.http.services.staff-portal.loadbalancer.server.port=5173
+      - traefik.http.services.staff-portal.loadbalancer.server.port=80
       - traefik.http.routers.staff-portal.entrypoints=web
 
   digital-signage:
@@ -120,7 +120,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.digital-signage.rule=PathPrefix(`/digital`)
-      - traefik.http.services.digital-signage.loadbalancer.server.port=5173
+      - traefik.http.services.digital-signage.loadbalancer.server.port=80
       - traefik.http.routers.digital-signage.entrypoints=web
   
   traefik:
