@@ -33,6 +33,10 @@ service, with the advantage of unifying these digital services into one.
 - [Digital Signage](http://deti-tqs-16.ua.pt/digital/)
 - [API Documentation](http://deti-tqs-16.ua.pt/api/docs/swagger-ui/index.html)
 
+#### Demo
+
+- [Videos](https://github.com/CityConnect-TQS/control-room/tree/main/docs/demo)
+
 ## Project Team
 
 | Member                  | Role             |
