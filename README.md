@@ -19,6 +19,17 @@ service, with the advantage of unifying these digital services into one.
 
 ## Project Resources
 
+#### Jira
+- [Project (might need permission)](https://cityconnect-tqs.atlassian.net/jira/software/projects/CC/boards/1)
+- [Jira List](https://cityconnect-tqs.atlassian.net/jira/software/projects/CC/list?atlOrigin=eyJpIjoiZDYyYTU1NDI5MDFkNGJiM2E3ZDYwMTkxNjA4YmUyYmMiLCJwIjoiaiJ9)
+- [Jira Timeline](https://cityconnect-tqs.atlassian.net/jira/software/projects/CC/boards/1/timeline?shared=&atlOrigin=eyJpIjoiZTdjMmZiMWY0YjU1NDk3N2IzZWRiNTAxMWRiYWE1OWMiLCJwIjoiaiJ9)
+
+#### CI/CD Pipeline
+- [Link to actions workflow files on backend](https://github.com/CityConnect-TQS/staff-portal/tree/main/.github/workflows)
+- [Link to actions workflow files on staff portal](https://github.com/CityConnect-TQS/client-portal/tree/main/.github/workflows)
+- [Link to actions workflow files on client portal](https://github.com/CityConnect-TQS/digital-signage/tree/main/.github/workflows)
+- [Link to actions workflow files on digital signage](https://github.com/CityConnect-TQS/digital-signage/tree/main/.github/workflows) 
+
 #### SonarCloud
 
 - [Backend](https://sonarcloud.io/summary/overall?id=CityConnect-TQS_backend)
