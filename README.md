@@ -1,74 +1,52 @@
 # CityConnect
 
-This project is undertaken as part of the TQS course, with the goal of developing a MVP product while applying software enterprise architecture patterns, specifying and enforcing a Software Quality Assurance (SQA) strategy and applying Continuous Testing, Continuous Integration and Continuous Delivery practices. The chosen theme was a bus service, like the ones you found in common transportation terminals. This is a digital service which includes a customer portal, tools for staff to edit bus and trips information and a digital signage system.
+![example workflow](https://github.com/CityConnect-TQS/control-room/actions/workflows/deploy.yaml/badge.svg)
 
-Our project aligns with these goals by focusing on the development of a user-centered online system for a public bus service, with the advantage of unifying these digital services into one.
+This project is undertaken as part of the TQS course, with the goal of developing an MVP product while applying software
+enterprise architecture patterns, specifying and enforcing a Software Quality Assurance (SQA) strategy and applying
+Continuous Testing, Continuous Integration and Continuous Delivery practices.
+The chosen theme was a bus service, like the ones you found in common transportation terminals.
+This is a digital service that includes a customer portal,
+tools for staff to edit bus and trip information and a digital signage system.
 
-## Keep repo and submodules up-to-date
-
-Do these commands every time you start working:
-
-```bash
-git pull
-git submodule foreach git pull
-```
-
-If everything works right, all submodules will hopefully be updated.
-
-There is no need to commit submodule changes to this repo, since GitHub Actions does it by itself.
-
-### Full fetch & pull
-
-In the case where a full pull is needed, do the following:
-
-```bash
-git pull --recurse-submodules
-git submodule foreach git checkout main
-```
-
-**WARNING: All local changes will be discarded!**
-
-## Git tips
-
-### Check current branch
-
-Run this code to get the current branch of all submodules:
-
-```bash
-git submodule foreach git rev-parse --abbrev-ref HEAD
-```
-
-### Cherry-picking commits
-
-If you need to cherry-pick commits from another branch or repo, do the following:
-
-```bash
-# Add other repo, if applicable
-git remote add cherry git@github.com:CityConnect-TQS/client-portal.git
-git fetch cherry
-
-# Cherry-pick one commit
-git cherry-pick commit_hash
-
-# Cherry-pick several commits
-git cherry-pick <commit_hash1>^..<commit_hash2>
-
-# Remove other repo, if applicable
-git remote remove cherry
-```
-
-## Project Bookmarks
-
-- [Project Backlog](https://cityconnect-tqs.atlassian.net/jira/software/projects/CC/boards/1/backlog)
-- [API Documentation](http://api.localhost/api/docs/swagger-ui/index.html)
-- [Static Analysis](https://sonarcloud.io/project/overview?id=CityConnect-TQS_backend)
-
-- CI/CD enviroment: Check the [backend](https://github.com/CityConnect-TQS/backend) submodule on how CI/CD is used for testing and Sonar analysis
+Our project aligns with these goals by focusing on the development of a user-centered online system for a public bus
+service, with the advantage of unifying these digital services into one.
 
 ## Credentials for testing
 
 - <b>Email</b>: admin@gmail.com
 - <b>Password</b>: admin123
+
+## Project Resources
+
+#### Jira
+- [Project (might need permission)](https://cityconnect-tqs.atlassian.net/jira/software/projects/CC/boards/1)
+- [Jira List](https://cityconnect-tqs.atlassian.net/jira/software/projects/CC/list?atlOrigin=eyJpIjoiZDYyYTU1NDI5MDFkNGJiM2E3ZDYwMTkxNjA4YmUyYmMiLCJwIjoiaiJ9)
+- [Jira Timeline](https://cityconnect-tqs.atlassian.net/jira/software/projects/CC/boards/1/timeline?shared=&atlOrigin=eyJpIjoiZTdjMmZiMWY0YjU1NDk3N2IzZWRiNTAxMWRiYWE1OWMiLCJwIjoiaiJ9)
+
+#### CI/CD Pipeline
+- [Link to actions workflow files on backend](https://github.com/CityConnect-TQS/staff-portal/tree/main/.github/workflows)
+- [Link to actions workflow files on staff portal](https://github.com/CityConnect-TQS/client-portal/tree/main/.github/workflows)
+- [Link to actions workflow files on client portal](https://github.com/CityConnect-TQS/digital-signage/tree/main/.github/workflows)
+- [Link to actions workflow files on digital signage](https://github.com/CityConnect-TQS/digital-signage/tree/main/.github/workflows) 
+
+#### SonarCloud
+
+- [Backend](https://sonarcloud.io/summary/overall?id=CityConnect-TQS_backend)
+- [Staff Portal](https://sonarcloud.io/summary/overall?id=CityConnect-TQS_staff-portal)
+- [Client Portal](https://sonarcloud.io/summary/overall?id=CityConnect-TQS_client-portal)
+- [Digital Signage](https://sonarcloud.io/summary/overall?id=CityConnect-TQS_digital-signage)
+
+#### Deployment
+
+- [Staff Portal](http://deti-tqs-16.ua.pt/staff/)
+- [Client Portal](http://deti-tqs-16.ua.pt)
+- [Digital Signage](http://deti-tqs-16.ua.pt/digital/)
+- [API Documentation](http://deti-tqs-16.ua.pt/api/docs/swagger-ui/index.html)
+
+#### Demo
+
+- [Videos](https://github.com/CityConnect-TQS/control-room/tree/main/docs/demo)
 
 ## Project Team
 
